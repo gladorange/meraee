@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+  <h1>Hello World PrimeFaces</h1>
+  <h:form>
+    <h:messages errorStyle="color:red" />
+    <h:inputText required="#{edController.isRequired}"
+                 binding="#{edController.numberToRedirectField}"
+                 requiredMessage="Надо ввести значение">
+      <f:validateLongRange minimum="0" maximum="6"      />
+    </h:inputText>
+
+    <h:inputText value="#{edController.initialValue}"
+                 binding="#{edController.inputField}">
+      <f:converter converterId="userConverter" />
+    </h:inputText>
+    <p:growl id="growl" life="2000" />
+
+
+    <h:commandButton action="#{edController.nextPage}" value="Roulette" />
+
+
+    <h:selectOneMenu value="#{edController.myNumber}">
+      <f:selectItem itemValue="#{null}" itemLabel="null" />
+      <f:selectItem itemValue="1" itemLabel="One" />
+      <f:selectItem itemValue="2" itemLabel="Два" />
+      <f:selectItem itemValue="3" itemLabel="Три" />
+    </h:selectOneMenu>
+
+    <!--<p:editor value="#{beanForAnna.initialValue}" />-->
+
+    <h:commandButton value=" Submit" id="nonAjax" ajax="false" actionListener="#{edController.buttonAction}"
+    />
+
+  </h:form>
+<table>
+  <tr>
+    <td>\#{3+2-1}</td><td>#{3+2-1}</td>
+    <td>\#{1 lt 2}</td><td>#{1 lt 2}</td></tr>
+  <tr align="center">
+    <td>\#{"1"+2}</td><td>#{"1"+2}</td>
+    <td>\#{"a" lt "b"}</td><td>#{"a" lt "b"}</td></tr>
+  <tr align="center">
+    <td>\#{1 + 2*3 + 3/4}</td><td>#{1 + 2*3 + 3/4}</td>
+    <td>\#{2/3 ge 3/2}</td><td>#{2/3 ge 3/2}</td></tr>
+  <tr align="center">
+    <td>\#{3%2}</td><td>#{3%2}</td>
+    <td>\#{3/4 == 0.75}</td><td>#{3/4 == 0.75}</td></tr>
+</table>
+<!--
+
+    <p:commandButton value="With Icon" id="withIcon" actionListener="#{beanForAnna.buttonAction}" update="growl" icon="ui-icon-disk" />
+
+    <p:commandButton actionListener="#{beanForAnna.buttonAction}" id="iconOnly" update="growl" icon="ui-icon-disk" title="Icon Only" />
+    <p:commandButton value="Disabled" id="disabled" disabled="true" />-->
+
+
+</h:body>
+</html>
