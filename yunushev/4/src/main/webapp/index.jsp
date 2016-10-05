@@ -8,9 +8,9 @@
 <title>Lesson #4</title>
 </head>
 <body>
-	<jsp:useBean id="Book" class="kyunysh.Book" scope="request"></jsp:useBean>
+	<jsp:useBean id="Book" class="kyunysh.Book" scope="request" />
 	<jsp:useBean id="BookController" class="kyunysh.BookController"
-		scope="application"></jsp:useBean>
+		scope="application" />
 	<form action="" method="POST">
 		<jsp:setProperty property="name" name="Book" />
 		<jsp:setProperty property="author" name="Book" />
