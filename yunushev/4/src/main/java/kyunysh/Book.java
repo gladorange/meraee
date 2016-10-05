@@ -6,19 +6,19 @@ public class Book {
 	private String author;
 	private int pageNumbers;
 	private String description;
-	
-    /**
-     * Default constructor. 
-     */
-    public Book() {
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * Default constructor.
+	 */
+	public Book() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -26,7 +26,7 @@ public class Book {
 		return author;
 	}
 
-	public void setAuthor(String author) {
+	public void setAuthor(final String author) {
 		this.author = author;
 	}
 
@@ -34,7 +34,7 @@ public class Book {
 		return pageNumbers;
 	}
 
-	public void setPageNumbers(int pageNumbers) {
+	public void setPageNumbers(final int pageNumbers) {
 		this.pageNumbers = pageNumbers;
 	}
 
@@ -42,7 +42,7 @@ public class Book {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 }
