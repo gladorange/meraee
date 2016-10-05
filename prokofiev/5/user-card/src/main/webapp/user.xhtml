@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>User Management</title>
+</h:head>
+
+<h:body>
+	<f:facet name="last">
+		<h:outputStylesheet name="styles.css" library="css" />
+	</f:facet>
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{userEditorViewBean.id}" />
+		<f:event type="preRenderView" listener="#{userEditorViewBean.init}" />
+	</f:metadata>
+
+	<h:form>
+		<p:growl id="msgs" showDetail="false" />
+
+		<h:outputText value="User card" rendered="true"
+			style="text-decoration:underline; font-size:25pt; margin-bottom:20px"
+			styleClass="block caption" />
+
+		<p:outputLabel for="userIdId" value="Id:" indicateRequired="false"
+			styleClass="block caption" />
+		<h:outputText value="#{userEditorViewBean.current.id}" id="userIdId"
+			styleClass="block colored-value" />
+
+		<p:outputLabel for="userFirstNameId" value="First Name:"
+			indicateRequired="false" styleClass="block caption" />
+		<h:outputText value="#{userEditorViewBean.current.firstName}"
+			rendered="#{userEditorViewBean.original == null}"
+			id="userFirstNameId" styleClass="block colored-value" />
+		<p:inputText value="#{userEditorViewBean.current.firstName}"
+			id="editUserFirstNameId" required="true"
+			requiredMessage="Please, enter first name it's mandatory field"
+			validatorMessage="First name is incorrect"
+			rendered="#{userEditorViewBean.original != null}"
+			styleClass="block colored-value">
+			<f:validateRegex pattern="^[_A-Za-z0-9]+$" />
+		</p:inputText>
+
+		<p:outputLabel for="userLastNameId" value="Last Name:"
+			indicateRequired="false" styleClass="block caption" />
+		<h:outputText value="#{userEditorViewBean.current.lastName}"
+			rendered="#{userEditorViewBean.original == null}" id="userLastNameId"
+			styleClass="block colored-value" />
+		<p:inputText value="#{userEditorViewBean.current.lastName}"
+			id="editUserLastNameId" required="true"
+			requiredMessage="Please, enter last name it's mandatory field"
+			validatorMessage="Last name is incorrect"
+			rendered="#{userEditorViewBean.original != null}"
+			styleClass="block colored-value">
+			<f:validateRegex pattern="^[_A-Za-z0-9]+$" />
+		</p:inputText>
+
+		<p:outputLabel for="userPswID" value="Password:"
+			indicateRequired="true" styleClass="block caption"
+			rendered="#{userEditorViewBean.original != null}" />
+		<p:password id="userPswID"
+			value="#{userEditorViewBean.current.password}" required="true"
+			match="userPswConfID"
+			requiredMessage="Please, enter password it's mandatory field"
+			styleClass="block colored-value"
+			rendered="#{userEditorViewBean.original != null}" />
+
+		<p:outputLabel for="userPswConfID" value="Confirmation: "
+			indicateRequired="true" styleClass="block caption"
+			rendered="#{userEditorViewBean.original != null}" />
+		<p:password id="userPswConfID"
+			value="#{userEditorViewBean.current.password}" required="true"
+			requiredMessage="Please, enter password confirmation it's mandatory field"
+			rendered="#{userEditorViewBean.original != null}"
+			styleClass="block colored-value" />
+
+		<p:outputLabel for="userPicId" value="Photo:" indicateRequired="false"
+			styleClass="block caption" rendered="true" />
+		<h:graphicImage value="#{userEditorViewBean.current.pictureLink}"
+			id="userPicId" styleClass="block colored-value"
+			rendered="#{userEditorViewBean.original == null}" />
+		<p:inputText value="#{userEditorViewBean.current.pictureLink}"
+			required="false" styleClass="block colored-value"
+			validator="pictureValidator"
+			rendered="#{userEditorViewBean.original != null}">
+		</p:inputText>
+
+		<p:commandButton value="Edit"
+			action="#{userEditorViewBean.makeEditable}" update="@form"
+			process="@form" rendered="#{userEditorViewBean.original == null}" />
+
+		<p:commandButton value="Delete"
+			action="#{userEditorViewBean.deleteUser}" update="@form"
+			process="@form" rendered="#{userEditorViewBean.original == null}" />
+
+		<p:commandButton value="Save"
+			action="#{userEditorViewBean.updateUser}" update="@form"
+			process="@form" rendered="#{userEditorViewBean.original != null}" />
+
+		<p:commandButton value="Cancel"
+			action="#{userEditorViewBean.cancelUpdate}" update="@form"
+			process="@form" rendered="#{userEditorViewBean.original != null}"
+			immediate="true" />
+
+	</h:form>
+</h:body>
+</html>
