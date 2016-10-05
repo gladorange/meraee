@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>User's page</title>
+</h:head>
+<h:body>
+	<h:form>
+		<table>
+			<tbody>
+				<tr>
+					<td><h:outputLabel for="firstNameField" value="First Name: " /></td>
+					<td><h:inputText id="firstNameField" value="#{User.firstName}" /></td>
+				</tr>
+				<tr>
+					<td><h:outputLabel for="secondNameField" value="Second Name: " /></td>
+					<td><h:inputText id="secondNameField"
+							value="#{User.secondName}" /></td>
+				</tr>
+				<tr>
+					<td><h:outputLabel for="passwordField" value="Password: " /></td>
+					<td><h:inputSecret id="passwordField" value="#{User.password}" /></td>
+				</tr>
+				<tr>
+					<td><h:outputLabel for="confirmPasswordField"
+							value="Confirm: " /></td>
+					<td><h:inputSecret id="confirmPasswordField" /></td>
+				</tr>
+				<tr>
+					<td><h:outputLabel for="fotoField" value="Foto:" /></td>
+					<td><h:inputText id="fotoField" value="" /></td>
+				</tr>
+			</tbody>
+		</table>
+	</h:form>
+</h:body>
+</html>
