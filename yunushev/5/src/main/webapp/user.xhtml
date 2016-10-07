@@ -2,38 +2,58 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
-<h:head>
-	<title>User's page</title>
-</h:head>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
 <h:body>
-	<h:form>
-		<table>
-			<tbody>
-				<tr>
-					<td><h:outputLabel for="firstNameField" value="First Name: " /></td>
-					<td><h:inputText id="firstNameField" value="#{User.firstName}" /></td>
-				</tr>
-				<tr>
-					<td><h:outputLabel for="secondNameField" value="Second Name: " /></td>
-					<td><h:inputText id="secondNameField"
-							value="#{User.secondName}" /></td>
-				</tr>
-				<tr>
-					<td><h:outputLabel for="passwordField" value="Password: " /></td>
-					<td><h:inputSecret id="passwordField" value="#{User.password}" /></td>
-				</tr>
-				<tr>
-					<td><h:outputLabel for="confirmPasswordField"
-							value="Confirm: " /></td>
-					<td><h:inputSecret id="confirmPasswordField" /></td>
-				</tr>
-				<tr>
-					<td><h:outputLabel for="fotoField" value="Foto:" /></td>
-					<td><h:inputText id="fotoField" value="" /></td>
-				</tr>
-			</tbody>
-		</table>
-	</h:form>
+	<f:view>
+		<f:metadata>
+			<f:viewParam name="id" value="#{userPageController.id}" />
+		</f:metadata>
+		<h:form>
+			<h:panelGrid id="grid" columns="3" cellpadding="5">
+				<p:outputLabel for="idField" value="ID:" />
+				<p:inputText id="idField"
+					value="#{userPageController.currentUser.id}" required="true"
+					requiredMessage="Must not be empty" />
+				<p:message for="idField" />
+
+				<p:outputLabel for="firstNameField" value="First Name: " />
+				<p:inputText id="firstNameField"
+					value="#{userPageController.currentUser.firstName}" required="true"
+					requiredMessage="Must not be empty" />
+				<p:message for="firstNameField" />
+
+				<p:outputLabel for="secondNameField" value="Second Name: " />
+				<p:inputText id="secondNameField"
+					value="#{userPageController.currentUser.secondName}"
+					required="true" requiredMessage="Must not be empty" />
+				<p:message for="secondNameField" />
+
+				<p:outputLabel for="passwordField" value="Password: " />
+				<p:password id="passwordField" match="configrmField"
+					value="#{userPageController.currentUser.password}" required="true"
+					requiredMessage="Must not be empty" />
+				<p:message for="passwordField"/>
+
+				<p:outputLabel for="configrmField" value="Confirm: " />
+				<p:password id="configrmField" required="true"
+					requiredMessage="Must not be empty" />
+				<p:message for="configrmField" />
+
+				<p:outputLabel for="photoField" value="Photo: " />
+				<p:inputText id="photoField"
+					value="#{userPageController.currentUser.photoUrl}" required="true"
+					requiredMessage="Must not be empty" converter="UrlConverter">
+					<f:validator validatorId="UrlValidator" />
+				</p:inputText>
+				<p:message for="photoField" />
+			</h:panelGrid>
+			<p:commandButton value="Validate" update="grid" />
+			<p:commandButton action="management" update="grid"
+				actionListener="#{userPageController.saveUser}" value="Save" />
+			<p:button outcome="management" value="Back to management" />
+		</h:form>
+	</f:view>
 </h:body>
 </html>
