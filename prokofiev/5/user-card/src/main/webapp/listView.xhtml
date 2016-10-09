@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>User Management</title>
+</h:head>
+
+<h:body>
+	<f:facet name="last">
+		<h:outputStylesheet name="styles.css" library="css" />
+	</f:facet>
+
+	<h:form>
+		<p:growl id="msgs" showDetail="false" />
+
+		<p:fieldset legend="Add User" toggleable="true" toggleSpeed="500"
+			collapsed="true">
+			<p:ajax event="toggle" />
+
+			<p:outputLabel for="freshUserIdId" value="Id:"
+				indicateRequired="true" styleClass="block caption" />
+			<p:inputText value="#{userCardViewBean.freshUser.id}"
+				id="freshUserIdId" required="true"
+				requiredMessage="Please, enter id it's mandatory field"
+				style="margin:15px" styleClass="block">
+			</p:inputText>
+
+			<p:outputLabel for="freshUserFirstNameId" value="First Name:"
+				indicateRequired="true" styleClass="block caption" />
+			<p:inputText value="#{userCardViewBean.freshUser.firstName}"
+				id="freshUserFirstNameId" required="true"
+				requiredMessage="Please, enter first name it's mandatory field"
+				validatorMessage="First name is incorrect" style="margin:15px"
+				styleClass="block">
+				<f:validateRegex pattern="^[_A-Za-z0-9]+$" />
+			</p:inputText>
+
+			<p:outputLabel for="freshUserLastNameId" value="Last Name:"
+				indicateRequired="true" styleClass="block caption" />
+			<p:inputText value="#{userCardViewBean.freshUser.lastName}"
+				id="freshUserLastNameId" required="true"
+				requiredMessage="Please, enter last name it's mandatory field"
+				validatorMessage="Last name is incorrect" style="margin:15px"
+				styleClass="block">
+				<f:validateRegex pattern="^[_A-Za-z0-9]+$" />
+			</p:inputText>
+
+			<p:outputLabel for="freshUserPswID" value="Password:"
+				indicateRequired="true" styleClass="block caption" />
+			<p:password id="freshUserPswID"
+				value="#{userCardViewBean.freshUser.password}" required="true"
+				match="freshUserPswConfID"
+				requiredMessage="Please, enter password it's mandatory field"
+				style="margin:15px" styleClass="block" />
+
+			<p:outputLabel for="freshUserPswConfID" value="Confirmation: "
+				indicateRequired="true" styleClass="block caption" />
+			<p:password id="freshUserPswConfID"
+				value="#{userCardViewBean.freshUser.password}" required="true"
+				requiredMessage="Please, enter password confirmation it's mandatory field"
+				style="margin:15px" styleClass="block" />
+
+			<p:outputLabel for="freshUserPicId" value="Photo:"
+				indicateRequired="false" styleClass="block caption" />
+			<p:inputText value="#{userCardViewBean.freshUser.pictureLink}"
+				id="freshUserPicId" required="false" style="margin:15px"
+				styleClass="block" validator="pictureValidator">
+			</p:inputText>
+
+			<p:commandButton value="OK" action="#{userCardViewBean.addUser}"
+				update="msgs usersListTable freshUserIdId freshUserFirstNameId freshUserLastNameId freshUserPswID freshUserPswConfID freshUserPicId"
+				styleClass="block" />
+		</p:fieldset>
+
+		<p:dataTable id="usersListTable" var="user" rowKey="#{user.id}"
+			value="#{userCardViewBean.users}" selectionMode="single"
+			selection="#{userCardViewBean.selectedUser}" rows="10"
+			currentPageReportTemplate="Showing {startRecord} to {endRecord} of {totalRecords} entries"
+			paginator="true"
+			paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink}"
+			widgetVar="usersTable">
+
+			<p:ajax event="rowDblselect"
+				listener="#{userCardViewBean.onRowDblClckSelect}" />
+
+			<p:column headerText="Id">
+				<h:outputText value="#{user.id}" />
+			</p:column>
+			<p:column headerText="First Name">
+				<h:outputText value="#{user.firstName}" />
+			</p:column>
+			<p:column headerText="Last Name">
+				<h:outputText value="#{user.lastName}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>
