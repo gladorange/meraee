@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<h:body>
+	<f:view>
+		<h:form>
+			<p:dataTable id="table" var="user" value="#{managmentPageController.users}">
+				<p:column headerText="Id">
+					<p:outputLabel value="#{user.id}"/>
+				</p:column>
+				<p:column headerText="First Name">
+					<p:outputLabel value="#{user.firstName}" />
+				</p:column>
+				<p:column headerText="Second Name">
+					<p:outputLabel value="#{user.secondName}" />
+				</p:column>
+				<p:column headerText="Photo">
+					<p:graphicImage url="#{user.photoUrl}" width="60" height="40"/>
+				</p:column>
+				<p:column>
+					<p:button value="Edit" outcome="user.xhtml?id=#{user.id}" />
+					<p:commandButton update="table" value="Remove" 
+						action="#{managmentPageController.removeUser}" >
+						<f:setPropertyActionListener value="#{user}"
+							target="#{managmentPageController.selectedUser}"/>
+					</p:commandButton>
+				</p:column>
+				<f:facet name="footer">
+					<p:button value="Add user" outcome="user"/>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</f:view>
+</h:body>
+</html>
