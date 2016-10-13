@@ -32,6 +32,11 @@ public class PersistenceController {
         return "";
 
     }
+    @Transactional
+    public String getUser() {
+        final User user = em.find(User.class, 1L);
+        return "";
+    }
 
     public List<User> getUserList() {
         final Query query = em.createQuery(

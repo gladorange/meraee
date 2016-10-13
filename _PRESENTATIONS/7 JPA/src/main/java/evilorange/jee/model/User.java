@@ -9,7 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+
+import evilorange.jee.UserSettings;
 
 @Entity
 public class User {
@@ -34,6 +37,17 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     Set<Order> orders;
+
+    @OneToOne(mappedBy = "user")
+    UserSettings settings;
+
+    public UserSettings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(UserSettings settings) {
+        this.settings = settings;
+    }
 
     public Long getId() {
         return id;

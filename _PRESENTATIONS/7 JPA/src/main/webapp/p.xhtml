@@ -7,10 +7,11 @@
 <f:view>
     <h:outputLabel value="Hello, world"/>
     <h:form>
-        <h:commandButton action="#{persistenceController.saveRandom}"/>
+        <h:commandButton value="Добавить случайного" action="#{persistenceController.saveRandom}"/>
+        <h:commandButton value="Получить пользователя" action="#{persistenceController.getUser}"/>
     </h:form>
 
-    <h:dataTable value="#{persistenceController.userList}" var="user">
+  <!--  <h:dataTable value="#{persistenceController.userList}" var="user">
         <h:column>
             <f:facet name="Имя"/>
             <h:outputLabel value="#{user.firstName}"/>
@@ -31,6 +32,6 @@
             <f:facet name="Подтверждение пароля"/>
             <h:outputLabel value="#{user.password}"/>
         </h:column>
-    </h:dataTable>
+    </h:dataTable>-->
 </f:view>
 </html>
