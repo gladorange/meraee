@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head />
+<h:body>
+    <h:form id="frmAddUser">
+        <p:panelGrid columns="2">
+            <p:outputLabel for="txtId" value="ID: " />
+            <p:inputText id="txtId" value="#{user.id}" required="true"
+                requiredMessage="Please input user ID"/>
+            <h:message for="txtId" style="color:red"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="2">
+            <p:outputLabel for="txtName" value="Name: " />
+            <p:inputText id="txtName" value="#{user.name}" required="true"
+                         requiredMessage="Please input user name"
+                         validatorMessage="Incorrect user name">
+                <f:validateRegex pattern="^[_A-Za-z0-9]+$" />
+            </p:inputText>
+            <h:message for="txtName" style="color:red"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="2">
+            <p:outputLabel for="txtSurname" value="Surname: " />
+            <p:inputText id="txtSurname" value="#{user.surname}" required="true"
+                         requiredMessage="Please input user surname"
+                         validatorMessage="Incorrect user surname">
+                <f:validateRegex pattern="^[_A-Za-z0-9]+$" />
+            </p:inputText>
+            <h:message for="txtSurname" style="color:red"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="2">
+            <p:outputLabel for="txtPassword" value="Password: " />
+            <p:password id="txtPassword" value="#{user.password}" required="true"
+                        requiredMessage="Please input user password"/>
+            <h:message for="txtPassword" style="color:red"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="2">
+            <p:outputLabel for="txtConfirmPassword" value="Confirm password: " />
+            <p:password id="txtConfirmPassword" required="true"
+                        requiredMessage="Please confirm user password">
+                <f:validator validatorId="userPasswordValidator"/>
+                <f:attribute name="attConfirmPassword" value="#{component.parent.parent.clientId}:txtPassword"/>
+            </p:password>
+            <h:message for="txtConfirmPassword" style="color:red"/>
+        </p:panelGrid>
+
+        <p:panelGrid columns="2">
+            <p:outputLabel for="txtLinkToPhoto" value="Link to photo: " />
+            <p:inputText id="txtLinkToPhoto" value="#{user.linkToPhoto}" required="true"
+                         requiredMessage="Please input URL of user's photo"/>
+            <h:message for="txtLinkToPhoto" style="color:red"/>
+        </p:panelGrid>
+
+        <p:commandButton value="Add user" action="#{userManagementController.addUser(user)}"/>
+
+    </h:form>
+</h:body>
+</html>

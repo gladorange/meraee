@@ -23,4 +23,6 @@ public class BookController implements Serializable {
     public void saveBook(Book book) {
         savedBooks.add(book);
     }
+
+    public void clearSavedBooks() { savedBooks.clear(); }
 }
