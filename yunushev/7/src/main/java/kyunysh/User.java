@@ -1,15 +1,17 @@
 package kyunysh;
 
 import java.net.URL;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +21,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
-	private Integer userId;
+	private Integer id;
 	@Column
 	private String firstName;
 	@Column
@@ -28,19 +30,22 @@ public class User {
 	private String password;
 	@Column
 	private URL photoUrl;
-	@ManyToMany
-	private List<User> friends;
+	@ElementCollection(targetClass = String.class)
+	@Column
+	private Set<String> favouriteDishes;
+	@OneToMany(cascade = CascadeType.ALL)
+	private Set<User> friends;
 
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getId() {
-		return userId;
+		return id;
 	}
 
 	public void setId(final Integer id) {
-		userId = id;
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -75,17 +80,29 @@ public class User {
 		photoUrl = PhotoUrl;
 	}
 
-	public List<User> getFriends() {
+	public Set<User> getFriends() {
 		return friends;
 	}
 
-	public void setFriends(final List<User> friends) {
+	public void addFriend(final User friend) {
+		friends.add(friend);
+	}
+
+	public void setFriends(final Set<User> friends) {
 		this.friends = friends;
+	}
+
+	public Set<String> getFavouriteDishes() {
+		return favouriteDishes;
+	}
+
+	public void setFavouriteDishes(final Set<String> favouriteDishes) {
+		this.favouriteDishes = favouriteDishes;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(firstName, userId, password, photoUrl, secondName);
+		return Objects.hash(firstName, id, password, secondName);
 	}
 
 	@Override
@@ -97,9 +114,8 @@ public class User {
 			return false;
 		}
 		final User user = (User) obj;
-		return Objects.equals(userId, user.userId) && Objects.equals(firstName, user.firstName)
-				&& Objects.equals(secondName, user.secondName) && Objects.equals(password, user.password)
-				&& Objects.equals(photoUrl, user.photoUrl);
+		return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName)
+				&& Objects.equals(secondName, user.secondName) && Objects.equals(password, user.password);
 	}
 
 }

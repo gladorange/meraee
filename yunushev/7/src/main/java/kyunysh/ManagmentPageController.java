@@ -7,7 +7,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import kyunysh.dao.UsersDao;
+import kyunysh.dao.UserDao;;
 
 @Named
 @RequestScoped
@@ -16,7 +16,7 @@ public class ManagmentPageController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private UsersDao users;
+	private UserDao users;
 	private User selectedUser = null;
 
 	public ManagmentPageController() {

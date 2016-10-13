@@ -1,8 +1,6 @@
 package kyunysh.dao;
 
 import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Collection;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -16,35 +14,30 @@ import kyunysh.User;
 
 @Named
 @ApplicationScoped
-public class UsersDao implements Serializable {
+public class UserDao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@PersistenceContext(unitName = "lesson7PU")
 	private EntityManager em;
 
-	public UsersDao() {
+	public UserDao() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Transactional
-	public void addUser(final User user) {
-		final User user1 = new User();
-		user1.setFirstName("1");
-		user1.setSecondName("2");
-		user1.setPassword("3");
-		try {
-			user1.setPhotoUrl(new URL("http://my.com"));
-		} catch (final MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void saveUser(final User user) {
+		if(user.getId() == null) {
+			em.persist(user);
+		} else {
+			em.merge(user);
 		}
-		em.persist(user1);
 	}
 
 	@Transactional
 	public void removeUser(final User user) {
-		// em.persist(user);
+		User mergedUser = em.merge(user);
+		em.remove(mergedUser);
 	}
 
 	public User getUser(final Integer id) {

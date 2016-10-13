@@ -12,12 +12,6 @@
 		</f:metadata>
 		<h:form>
 			<h:panelGrid id="grid" columns="3" cellpadding="5">
-				<p:outputLabel for="idField" value="ID:" />
-				<p:inputText id="idField"
-					value="#{userPageController.currentUser.id}" required="true"
-					requiredMessage="Must not be empty" />
-				<p:message for="idField" />
-
 				<p:outputLabel for="firstNameField" value="First Name: " />
 				<p:inputText id="firstNameField"
 					value="#{userPageController.currentUser.firstName}" required="true"

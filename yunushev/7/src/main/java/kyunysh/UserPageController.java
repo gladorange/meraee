@@ -6,7 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import kyunysh.dao.UsersDao;
+import kyunysh.dao.UserDao;
 
 @Named
 @RequestScoped
@@ -15,18 +15,15 @@ public class UserPageController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private UsersDao users;
+	private UserDao users;
 	private User currentUser = new User();
-	private boolean isNewUser = true;
 
 	public UserPageController() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public void saveUser() {
-		if (isNewUser) {
-			users.addUser(currentUser);
-		}
+		users.saveUser(currentUser);
 	}
 
 	public User getCurrentUser() {
@@ -38,7 +35,6 @@ public class UserPageController implements Serializable {
 	}
 
 	public void setId(final Integer id) {
-		isNewUser = false;
 		currentUser = users.getUser(id);
 	}
 }
