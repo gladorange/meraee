@@ -20,14 +20,15 @@ public class UrlValidator implements Validator {
 	@Override
 	public void validate(final FacesContext context, final UIComponent component, final Object value)
 			throws ValidatorException {
-		try {
-			new URL(value.toString());
-		} catch (final MalformedURLException e) {
-			final FacesMessage msg = new FacesMessage("URL validation failed", "Invalid URL format");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			throw new ValidatorException(msg);
+		if (value != null && !value.toString().isEmpty()) {
+			try {
+				new URL(value.toString());
+			} catch (final MalformedURLException e) {
+				final FacesMessage msg = new FacesMessage("URL validation failed", "Invalid URL format");
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+				throw new ValidatorException(msg);
+			}
 		}
-
 	}
 
 }

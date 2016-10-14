@@ -1,6 +1,7 @@
 package kyunysh;
 
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -8,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,10 +32,9 @@ public class User {
 	private String password;
 	@Column
 	private URL photoUrl;
-	@ElementCollection(targetClass = String.class)
-	@Column
-	private Set<String> favouriteDishes;
-	@OneToMany(cascade = CascadeType.ALL)
+	@ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
+	private Set<String> favouriteDishes = new HashSet<String>();
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<User> friends;
 
 	public User() {
@@ -92,8 +93,20 @@ public class User {
 		this.friends = friends;
 	}
 
+	public void removeFriend(final User friend) {
+		friends.remove(friend);
+	}
+
 	public Set<String> getFavouriteDishes() {
 		return favouriteDishes;
+	}
+
+	public void addfavouriteDish(final String favouriteDish) {
+		favouriteDishes.add(favouriteDish);
+	}
+
+	public void removeFavouriteDish(final String favouriteDish) {
+		favouriteDishes.remove(favouriteDish);
 	}
 
 	public void setFavouriteDishes(final Set<String> favouriteDishes) {
@@ -102,7 +115,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(firstName, id, password, secondName);
+		return Objects.hash(firstName, id, password, secondName, photoUrl);
 	}
 
 	@Override
@@ -115,7 +128,8 @@ public class User {
 		}
 		final User user = (User) obj;
 		return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName)
-				&& Objects.equals(secondName, user.secondName) && Objects.equals(password, user.password);
+				&& Objects.equals(secondName, user.secondName) && Objects.equals(password, user.password)
+				&& Objects.equals(photoUrl, user.photoUrl);
 	}
 
 }

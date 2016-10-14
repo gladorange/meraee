@@ -27,7 +27,7 @@ public class UserDao implements Serializable {
 
 	@Transactional
 	public void saveUser(final User user) {
-		if(user.getId() == null) {
+		if (user.getId() == null) {
 			em.persist(user);
 		} else {
 			em.merge(user);
@@ -36,7 +36,7 @@ public class UserDao implements Serializable {
 
 	@Transactional
 	public void removeUser(final User user) {
-		User mergedUser = em.merge(user);
+		final User mergedUser = em.merge(user);
 		em.remove(mergedUser);
 	}
 
