@@ -3,10 +3,10 @@ package org.arvios.jsfapps.manage;
 import org.arvios.jsfapps.dao.User;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -23,14 +23,19 @@ public class UserManagementController implements Serializable {
     public UserManagementController() {
     }
 
-    public void addUser(User user) throws Exception {
-        if (users.containsKey(user.getId())) {
-            throw new Exception("User with ID " + user.getId() + " already exists");
-        }
+    public void addOrUpdateUser(User user) {
+        // if user with given ID does not exist, then add new user,
+        // otherwise update existing user
+        boolean userExists = users.containsKey(user.getId());
         users.put(user.getId(), user);
+        if (userExists) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "User updated, ID: " + user.getId(), null));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "New user added, ID: " + user.getId(), null));
+        }
     }
 
-    public List<User> getAllUsers() {
-        return new ArrayList<User>(users.values());
+    public User getUserById(String id) {
+        return users.get(id);
     }
 }
