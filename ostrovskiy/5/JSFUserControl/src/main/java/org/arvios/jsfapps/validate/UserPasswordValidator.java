@@ -28,7 +28,7 @@ public class UserPasswordValidator implements Validator {
         }
 
         if (!password.equals(confirmPassword)) {
-            throw new ValidatorException(new FacesMessage("Passwords are not equal"));
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords are not equal", null));
         }
     }
 }
