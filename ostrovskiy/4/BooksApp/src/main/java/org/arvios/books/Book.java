@@ -1,9 +1,13 @@
 package org.arvios.books;
 
+import java.io.Serializable;
+
 /**
  * Created by artem-ostrovsky on 10.10.2016.
  */
-public class Book {
+public class Book implements Serializable {
+    private static final long serialVersionUID = -6105673935487900564L;
+
     private String author;
     private int numberOfPages;
     private String name;

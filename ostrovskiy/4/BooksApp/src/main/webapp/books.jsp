@@ -17,41 +17,42 @@
 
 <form action="books.jsp" method="post">
     <label for="txtAuthor">Author:</label>
-    <input type="text" id="txtAuthor" name="txtAuthor" size="30" maxlength="50">
+    <input type="text" id="txtAuthor" name="author" size="30" maxlength="50">
     <br>
     <br>
     <label for="txtNumberOfPages">Number of pages:</label>
-    <input type="text" id="txtNumberOfPages" name="txtNumberOfPages" size="4" maxlength="4"
+    <input type="text" id="txtNumberOfPages" name="numberOfPages" size="4" maxlength="4"
            onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     <br>
     <br>
     <label for="txtName">Name:</label>
-    <input type="text" id="txtName" name="txtName" size="50" maxlength="100">
+    <input type="text" id="txtName" name="name" size="50" maxlength="100">
     <br>
     <br>
     <label for="txtDescription">Description:</label>
-    <input type="text" id="txtDescription" name="txtDescription" size="50" maxlength="100">
+    <input type="text" id="txtDescription" name="description" size="50" maxlength="100">
     <br>
     <br>
     <br>
-    <input type="submit" id="btnSave" name="btnSave" value="Save">
-    <jsp:useBean id="bookController" class="org.arvios.books.BookController" scope="application">
-        <%
-            if (request.getParameter("btnSave") != null) {
-                Book book = new Book();
-                book.setAuthor(request.getParameter("txtAuthor"));
-                book.setNumberOfPages(Integer.parseInt(request.getParameter("txtNumberOfPages")));
-                book.setName(request.getParameter("txtName"));
-                book.setDescription(request.getParameter("txtDescription"));
-                bookController.saveBook(book);
-            }
-        %>
-    </jsp:useBean>
+    <input type="submit" id="btnSave" name="save" value="Save">
+    <jsp:useBean id="bookController" class="org.arvios.books.BookController" scope="application"/>
+    <jsp:useBean id="currentBook" class="org.arvios.books.Book" scope="request"/>
+    <jsp:setProperty name="currentBook" property="*"/>
+    <%
+        if (request.getParameter("save") != null) {
+            bookController.saveBook(currentBook);
+        }
+    %>
     <br>
     <br>
     <br>
     <br>
-    <table>
+    <%
+        if (request.getParameter("clear") != null) {
+            bookController.clearSavedBooks();
+        }
+    %>
+    <table style="text-align: left">
         <tr>
             <th>Author</th>
             <th>Number of Pages</th>
@@ -71,6 +72,8 @@
             }
         %>
     </table>
+    <br>
+    <input type="submit" id="btnClear" name="clear" value="Clear book list">
 </form>
 
 </body>
