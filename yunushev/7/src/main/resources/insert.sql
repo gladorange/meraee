@@ -1,0 +1,11 @@
+INSERT INTO `lesson7db`.`user` (`firstName`,`secondName`,`password`) VALUES ('Ivan','Ivanovich','1'); SELECT * FROM lesson7db.user;
+INSERT INTO `lesson7db`.`user` (`firstName`,`secondName`,`password`) VALUES ('Petr','Petrovich','2'); SELECT * FROM lesson7db.user;
+INSERT INTO `lesson7db`.`user` (`firstName`,`secondName`,`password`) VALUES ('Dmitry','Dmitrievich','3'); SELECT * FROM lesson7db.user;
+INSERT INTO `lesson7db`.`user_favouritedishes` (`User_id`,`favouriteDishes`) VALUES (1,'a'); SELECT * FROM lesson7db.user_user;
+INSERT INTO `lesson7db`.`user_favouritedishes` (`User_id`,`favouriteDishes`) VALUES (1,'b'); SELECT * FROM lesson7db.user_user;
+INSERT INTO `lesson7db`.`user_favouritedishes` (`User_id`,`favouriteDishes`) VALUES (2,'c'); SELECT * FROM lesson7db.user_user;
+INSERT INTO `lesson7db`.`user_favouritedishes` (`User_id`,`favouriteDishes`) VALUES (2,'d'); SELECT * FROM lesson7db.user_user;
+INSERT INTO `lesson7db`.`user_user` (`User_id`, `friends_id`) VALUES (1, 2);
+INSERT INTO `lesson7db`.`user_user` (`User_id`, `friends_id`) VALUES (1, 3);
+INSERT INTO `lesson7db`.`user_user` (`User_id`, `friends_id`) VALUES (2, 1);
+INSERT INTO `lesson7db`.`user_user` (`User_id`, `friends_id`) VALUES (2, 3);
