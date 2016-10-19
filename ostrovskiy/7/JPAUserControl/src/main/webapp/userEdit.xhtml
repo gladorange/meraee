@@ -11,13 +11,13 @@
 </h:head>
 <h:body>
     <h:form>
-        <p:messages id="msgsGlobal" globalOnly="true"/>
+        <p:messages id="msgsUserGlobal" globalOnly="true"/>
 
         <p:panelGrid columns="1">
             <p:panel id="pnlId">
                 <p:outputLabel for="txtId" value="ID: " />
                 <p:inputText id="txtId" value="#{user.id}" required="true"
-                             requiredMessage="Please input user ID"
+                             requiredMessage="Please enter user ID"
                              validatorMessage="Incorrect user ID, please use digits only, starting with nonzero">
                     <f:validateRegex pattern="^[1-9][0-9]*$" />
                 </p:inputText>
@@ -27,7 +27,7 @@
             <p:panel id="pnlName">
                 <p:outputLabel for="txtName" value="Name: " />
                 <p:inputText id="txtName" value="#{user.name}" required="true"
-                             requiredMessage="Please input user name"
+                             requiredMessage="Please enter user name"
                              validatorMessage="Incorrect user name, please use letters, digits and underscores only">
                     <f:validateRegex pattern="^[_A-Za-z0-9]+$" />
                 </p:inputText>
@@ -37,7 +37,7 @@
             <p:panel id="pnlSurname">
                 <p:outputLabel for="txtSurname" value="Surname: " />
                 <p:inputText id="txtSurname" value="#{user.surname}" required="true"
-                             requiredMessage="Please input user surname"
+                             requiredMessage="Please enter user surname"
                              validatorMessage="Incorrect user surname, please use letters, digits and underscores only">
                     <f:validateRegex pattern="^[_A-Za-z0-9]+$" />
                 </p:inputText>
@@ -47,7 +47,7 @@
             <p:panel id="pnlPassword">
                 <p:outputLabel for="txtPassword" value="Password: " />
                 <p:password id="txtPassword" value="#{user.password}" required="true"
-                            requiredMessage="Please input user password"/>
+                            requiredMessage="Please enter user password"/>
                 <p:message id="msgPassword" for="txtPassword" style="color:red"/>
             </p:panel>
 
@@ -68,9 +68,47 @@
             </p:panel>
         </p:panelGrid>
 
-        <p:commandButton value="Add/Update User" action="#{userManagementController.addOrUpdateUser(user)}"
-                         update="msgsGlobal pnlId pnlName pnlSurname pnlPassword pnlConfirmPassword"/>
+        <p:commandButton value="Add/Update User" action="#{persistenceController.addOrUpdateUser(user)}"
+                         update="msgsUserGlobal pnlId pnlName pnlSurname pnlPassword pnlConfirmPassword"/>
 
+    </h:form>
+
+    <h:form>
+        <p:messages id="msgsAddFriendGlobal" globalOnly="true"/>
+
+        <p:panelGrid columns="1">
+            <p:panel id="pnlAddFriend">
+                <p:outputLabel for="txtFriendId" value="Friend ID: " />
+                <p:inputText id="txtFriendId" value="#{persistenceController.currentFriendId}" required="true"
+                             requiredMessage="Please enter user ID to add to friend list for current user"
+                             validatorMessage="Incorrect user ID, please use digits only, starting with nonzero">
+                    <f:validateRegex pattern="^[1-9][0-9]*$" />
+                </p:inputText>
+                <p:message id="msgFriendId" for="txtFriendId" style="color: red"/>
+            </p:panel>
+        </p:panelGrid>
+
+        <p:commandButton value="Add Friend" action="#{persistenceController.addFriendForCurrentUser()}"
+                         update="msgsAddFriendGlobal pnlAddFriend"/>
+    </h:form>
+
+    <h:form>
+        <p:messages id="msgsAddFavoriteDishGlobal" globalOnly="true"/>
+
+        <p:panelGrid columns="1">
+            <p:panel id="pnlAddFavoriteDish">
+                <p:outputLabel for="txtAddFavoriteDish" value="Dish ID: " />
+                <p:inputText id="txtAddFavoriteDish" value="#{persistenceController.currentFavoriteDishId}" required="true"
+                             requiredMessage="Please enter dish ID to add to favorite dish list for current user"
+                             validatorMessage="Incorrect dish ID, please use digits only, starting with nonzero">
+                    <f:validateRegex pattern="^[1-9][0-9]*$" />
+                </p:inputText>
+                <p:message id="msgFavoriteDishId" for="txtAddFavoriteDish" style="color: red"/>
+            </p:panel>
+        </p:panelGrid>
+
+        <p:commandButton value="Add Favorite Dish" action="#{persistenceController.addFavoriteDishForCurrentUser()}"
+                         update="msgsAddFavoriteDishGlobal pnlAddFavoriteDish"/>
     </h:form>
 </h:body>
 </html>

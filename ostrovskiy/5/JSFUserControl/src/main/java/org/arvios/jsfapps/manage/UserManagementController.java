@@ -19,6 +19,8 @@ public class UserManagementController implements Serializable {
     private static final long serialVersionUID = 9202273390567071088L;
 
     private Map<String, User> users = new ConcurrentHashMap<>();
+    private String currentId;
+    private User currentUser;
 
     public UserManagementController() {
     }
@@ -35,7 +37,19 @@ public class UserManagementController implements Serializable {
         }
     }
 
-    public User getUserById(String id) {
-        return users.get(id);
+    public void setCurrentId(String id) {
+        currentId = id;
+    }
+
+    public String getCurrentId() {
+        return currentId;
+    }
+
+    public void setCurrentUser() {
+        currentUser = users.get(currentId);
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
     }
 }
