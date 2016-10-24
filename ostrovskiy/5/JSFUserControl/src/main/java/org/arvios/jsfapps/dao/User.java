@@ -60,4 +60,8 @@ public class User implements Serializable {
     public void setLinkToPhoto(String linkToPhoto) {
         this.linkToPhoto = linkToPhoto;
     }
+
+    public boolean hasPhoto() {
+        return (linkToPhoto != null) && (!"".equals(linkToPhoto));
+    }
 }
