@@ -1,0 +1,15 @@
+.caption{
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.colored-value{
+	color: teal;
+	font-size: 15pt;
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
+
+.block{
+	display: block;
+}

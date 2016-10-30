@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<h:body>
+	<f:view>
+		<f:metadata>
+			<f:viewParam id="idParam" name="id" value="#{userPageController.id}" />
+		</f:metadata>
+		<h:form>
+			<h:panelGrid id="grid" columns="3" cellpadding="5">
+				<p:outputLabel for="firstNameField" value="First Name: " />
+				<p:inputText id="firstNameField"
+					value="#{userPageController.currentUser.firstName}" required="true"
+					requiredMessage="Must not be empty" />
+				<p:message for="firstNameField" />
+
+				<p:outputLabel for="secondNameField" value="Second Name: " />
+				<p:inputText id="secondNameField"
+					value="#{userPageController.currentUser.secondName}"
+					required="true" requiredMessage="Must not be empty" />
+				<p:message for="secondNameField" />
+
+				<p:outputLabel for="passwordField" value="Password: " />
+				<p:password id="passwordField" match="configrmField"
+					value="#{userPageController.currentUser.password}" required="true"
+					requiredMessage="Must not be empty" />
+				<p:message for="passwordField" />
+
+				<p:outputLabel for="configrmField" value="Confirm: " />
+				<p:password id="configrmField" required="true"
+					requiredMessage="Must not be empty" />
+				<p:message for="configrmField" />
+
+				<p:outputLabel for="photoField" value="Photo: " />
+				<p:inputText id="photoField"
+					value="#{userPageController.currentUser.photoUrl}"
+					converter="UrlConverter">
+					<f:validator validatorId="UrlValidator" />
+				</p:inputText>
+				<p:message for="photoField" />
+			</h:panelGrid>
+
+			<p:commandButton value="Validate" update="grid" />
+			<p:commandButton action="#{userPageController.saveUser}" value="Save"
+				update="grid" />
+			<p:button outcome="management" value="Back to management" />
+		</h:form>
+		<h:form>
+			<h:panelGrid id="favouriteDishes" columns="1" cellpadding="5">
+				<p:toolbar>
+					<f:facet name="left">
+						<p:inputText id="favouriteDish" required="true"
+							requiredMessage="favouriteDish must not be empty"
+							value="#{userPageController.favouriteDish}" />
+						<p:commandButton value="Add dish" update="favouriteDishes,idParam"
+							process="favouriteDish" />
+						<p:commandButton value="Remove dish"
+							update="favouriteDishes,idParam" immediate="true"
+							process="dishToRemove" />
+						<p:message id="favouriteDishMessage" for="favouriteDish" />
+					</f:facet>
+				</p:toolbar>
+				
+				<p:selectOneListbox value="#{userPageController.dishToRemove}"
+					var="dish">
+					<f:selectItems id="dishToRemove"
+						value="#{userPageController.favouriteDishes}" var="dishToRemove"
+						itemValue="#{dishToRemove}" />
+					<p:column>
+						<h:outputText value="#{dish}" />
+					</p:column>
+				</p:selectOneListbox>
+			</h:panelGrid>
+		</h:form>
+		<h:form>
+			<h:panelGrid id="friends" columns="1" cellpadding="5">
+				<p:toolbar>
+					<f:facet name="left">
+						<p:selectOneMenu value="#{userPageController.friendCandidate}"
+							var="candidate">
+							<f:selectItems id="possibleFriend"
+								value="#{userPageController.possibleFriends}"
+								var="possibleFriend" itemLabel="#{possibleFriend.firstName}"
+								itemValue="#{possibleFriend}" />
+							<p:column>
+								<h:outputText value="#{candidate.firstName}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{candidate.secondName}" />
+							</p:column>
+						</p:selectOneMenu>
+						<p:commandButton value="Add friend" update="friends,idParam"
+							process="possibleFriend" />
+						<p:commandButton value="Remove friend" update="friends,idParam"
+							process="friendToRemove" />
+					</f:facet>
+				</p:toolbar>
+
+				<p:selectOneListbox value="#{userPageController.friendToRemove}"
+					var="friend">
+					<f:selectItems id="friendToRemove"
+						value="#{userPageController.currentUser.friends}"
+						var="friendToRemove" itemLabel="#{friendToRemove.firstName}"
+						itemValue="#{friendToRemove}" />
+					<p:column>
+						<h:outputText value="#{friend.firstName}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{friend.secondName}" />
+					</p:column>
+				</p:selectOneListbox>
+			</h:panelGrid>
+		</h:form>
+	</f:view>
+</h:body>
+</html>

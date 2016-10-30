@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>User Management</title>
+</h:head>
+
+<h:body>
+	<f:facet name="last">
+		<h:outputStylesheet name="styles.css" library="css" />
+	</f:facet>
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{userEditorViewBean.id}" />
+		<f:event type="preRenderView" listener="#{userEditorViewBean.init}" />
+	</f:metadata>
+
+	<h:form>
+		<ui:debug hotkey="x" />
+		<p:growl id="msgs" showDetail="false" />
+
+		<h:outputText value="User card" rendered="true"
+			style="text-decoration:underline; font-size:25pt; margin-bottom:20px"
+			styleClass="block caption" />
+
+		<p:outputLabel for="userIdId" value="Id:" indicateRequired="false"
+			styleClass="block caption" />
+		<h:outputText value="#{userEditorViewBean.current.id}" id="userIdId"
+			styleClass="block colored-value" />
+
+		<p:outputLabel for="userFirstNameId" value="First Name:"
+			indicateRequired="false" styleClass="block caption" />
+		<h:outputText value="#{userEditorViewBean.current.firstName}"
+			rendered="#{userEditorViewBean.original == null}"
+			id="userFirstNameId" styleClass="block colored-value" />
+		<p:inputText value="#{userEditorViewBean.current.firstName}"
+			id="editUserFirstNameId" required="true"
+			requiredMessage="Please, enter first name it's mandatory field"
+			validatorMessage="First name is incorrect"
+			rendered="#{userEditorViewBean.original != null}"
+			styleClass="block colored-value">
+			<f:validateRegex pattern="^[_A-Za-z0-9]+$" />
+		</p:inputText>
+
+		<p:outputLabel for="userLastNameId" value="Last Name:"
+			indicateRequired="false" styleClass="block caption" />
+		<h:outputText value="#{userEditorViewBean.current.lastName}"
+			rendered="#{userEditorViewBean.original == null}" id="userLastNameId"
+			styleClass="block colored-value" />
+		<p:inputText value="#{userEditorViewBean.current.lastName}"
+			id="editUserLastNameId" required="true"
+			requiredMessage="Please, enter last name it's mandatory field"
+			validatorMessage="Last name is incorrect"
+			rendered="#{userEditorViewBean.original != null}"
+			styleClass="block colored-value">
+			<f:validateRegex pattern="^[_A-Za-z0-9]+$" />
+		</p:inputText>
+
+		<p:outputLabel for="userPswID" value="Password:"
+			indicateRequired="true" styleClass="block caption"
+			rendered="#{userEditorViewBean.original != null}" />
+		<p:password id="userPswID"
+			value="#{userEditorViewBean.current.password}" required="true"
+			match="userPswConfID"
+			requiredMessage="Please, enter password it's mandatory field"
+			styleClass="block colored-value"
+			rendered="#{userEditorViewBean.original != null}" />
+
+		<p:outputLabel for="userPswConfID" value="Confirmation: "
+			indicateRequired="true" styleClass="block caption"
+			rendered="#{userEditorViewBean.original != null}" />
+		<p:password id="userPswConfID"
+			value="#{userEditorViewBean.current.password}" required="true"
+			requiredMessage="Please, enter password confirmation it's mandatory field"
+			rendered="#{userEditorViewBean.original != null}"
+			styleClass="block colored-value" />
+
+		<p:outputLabel for="userPicId" value="Photo:" indicateRequired="false"
+			styleClass="block caption"
+			rendered="#{userEditorViewBean.original != null or (userEditorViewBean.current.pictureLink != null and !userEditorViewBean.current.pictureLink.isEmpty())}" />
+		<h:graphicImage value="#{userEditorViewBean.current.pictureLink}"
+			id="userPicId" styleClass="block colored-value"
+			rendered="#{userEditorViewBean.original == null and userEditorViewBean.current.pictureLink != null}" />
+		<p:inputText value="#{userEditorViewBean.current.pictureLink}"
+			required="false" styleClass="block colored-value"
+			validator="pictureValidator"
+			rendered="#{userEditorViewBean.original != null}">
+		</p:inputText>
+
+		<p:dataList value="#{userEditorViewBean.current.friends}"
+			var="follower" type="unordered" itemType="none" paginator="true"
+			rows="5" rendered="#{userEditorViewBean.original == null}">
+			<f:facet name="header">Friends</f:facet>
+			#{follower.firstName} #{follower.lastName}
+		</p:dataList>
+		<p:outputPanel deferred="false"
+			rendered="#{userEditorViewBean.original != null}">
+			<p:outputLabel for="friendsPickList" value="Add friends:"
+				indicateRequired="false" styleClass="block caption" />
+			<p:pickList id="friendsPickList" converter="ucConverter"
+				value="#{userEditorViewBean.available}" var="friend"
+				itemLabel="#{friend.firstName} #{friend.lastName}"
+				itemValue="#{friend}"
+				rendered="#{userEditorViewBean.original != null}"
+				styleClass="block colored-value">
+				<f:facet name="sourceCaption">Available</f:facet>
+				<f:facet name="targetCaption">Current</f:facet>
+			</p:pickList>
+		</p:outputPanel>
+
+		<p:dataList value="#{userEditorViewBean.current.dishes}" var="dish"
+			type="ordered">
+			<f:facet name="header">Favourite food</f:facet>
+				#{dish}
+		</p:dataList>
+
+		<p:commandButton value="Edit"
+			action="#{userEditorViewBean.makeEditable}" update="@form"
+			process="@form" rendered="#{userEditorViewBean.original == null}"
+			style="margin-top:15px" />
+
+		<p:commandButton value="Delete"
+			action="#{userEditorViewBean.deleteUser}" update="@form"
+			process="@form" rendered="#{userEditorViewBean.original == null}"
+			style="margin-top:15px" />
+
+		<p:commandButton value="Save"
+			action="#{userEditorViewBean.updateUser}" update="@form"
+			process="@form" rendered="#{userEditorViewBean.original != null}"
+			style="margin-top:15px" />
+
+		<p:commandButton value="Cancel"
+			action="#{userEditorViewBean.cancelUpdate}" update="@form"
+			process="@form" rendered="#{userEditorViewBean.original != null}"
+			immediate="true" style="margin-top:15px" />
+
+	</h:form>
+</h:body>
+</html>
