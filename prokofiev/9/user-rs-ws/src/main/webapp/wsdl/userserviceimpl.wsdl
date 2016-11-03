@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="UserServiceImplService" targetNamespace="http://ws.user.seprokof.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.user.seprokof.com/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://ws.user.seprokof.com/" schemaLocation="userserviceimpl_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="addUserResponse">
+    <wsdl:part name="parameters" element="tns:addUserResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateUserResponse">
+    <wsdl:part name="parameters" element="tns:updateUserResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteUserResponse">
+    <wsdl:part name="parameters" element="tns:deleteUserResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteUser">
+    <wsdl:part name="parameters" element="tns:deleteUser">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateUser">
+    <wsdl:part name="parameters" element="tns:updateUser">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUserByIdResponse">
+    <wsdl:part name="parameters" element="tns:getUserByIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addUser">
+    <wsdl:part name="parameters" element="tns:addUser">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllUsers">
+    <wsdl:part name="parameters" element="tns:getAllUsers">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllUsersResponse">
+    <wsdl:part name="parameters" element="tns:getAllUsersResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUserById">
+    <wsdl:part name="parameters" element="tns:getUserById">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MyUserInt">
+    <wsdl:operation name="addUser">
+      <wsdl:input name="addUser" message="tns:addUser">
+    </wsdl:input>
+      <wsdl:output name="addUserResponse" message="tns:addUserResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <wsdl:input name="deleteUser" message="tns:deleteUser">
+    </wsdl:input>
+      <wsdl:output name="deleteUserResponse" message="tns:deleteUserResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllUsers">
+      <wsdl:input name="getAllUsers" message="tns:getAllUsers">
+    </wsdl:input>
+      <wsdl:output name="getAllUsersResponse" message="tns:getAllUsersResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUser">
+      <wsdl:input name="updateUser" message="tns:updateUser">
+    </wsdl:input>
+      <wsdl:output name="updateUserResponse" message="tns:updateUserResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserById">
+      <wsdl:input name="getUserById" message="tns:getUserById">
+    </wsdl:input>
+      <wsdl:output name="getUserByIdResponse" message="tns:getUserByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UserServiceImplServiceSoapBinding" type="tns:MyUserInt">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="addUser">
+      <soap12:operation soapAction="urn:AddUser" style="document"/>
+      <wsdl:input name="addUser">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addUserResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <soap12:operation soapAction="urn:DeleteUser" style="document"/>
+      <wsdl:input name="deleteUser">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteUserResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllUsers">
+      <soap12:operation soapAction="urn:GetAllUsers" style="document"/>
+      <wsdl:input name="getAllUsers">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllUsersResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUser">
+      <soap12:operation soapAction="urn:UpdateUser" style="document"/>
+      <wsdl:input name="updateUser">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateUserResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserById">
+      <soap12:operation soapAction="urn:GetUserById" style="document"/>
+      <wsdl:input name="getUserById">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getUserByIdResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserServiceImplService">
+    <wsdl:port name="UserServiceImplPort" binding="tns:UserServiceImplServiceSoapBinding">
+      <soap12:address location="http://localhost:9090/UserServiceImplPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
