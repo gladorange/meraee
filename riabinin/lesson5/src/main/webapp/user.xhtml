@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{user.ID}" />
+		<f:event listener="#{user.init}" type="preRenderView"></f:event>
+	</f:metadata>
+
+    <h:head>
+        <title>User Page</title>
+    </h:head>
+    <h:body>
+    	<h2>User </h2>
+    	ID: <h:outputText value="#{user.ID}"/><br/>
+    	First name: <h:outputText value="#{user.firstName}"/><br/>
+    	Last name: <h:outputText value="#{user.lastName}"/><br/>
+    	Password: <h:outputText value="#{user.password}"/><br/>
+    	Photo URI: <h:outputText value="#{user.photoUri}"/>
+    </h:body>
+</html>

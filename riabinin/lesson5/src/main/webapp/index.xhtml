@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <title>Users</title>
+    </h:head>
+    <h:body>
+    	<h2>Users</h2>
+    	<h:form>
+    		<h:messages errorStyle="color:Red"/>
+    	
+    		<br/><h:outputLabel for="firstName" value="First Name"/>
+    		<h:inputText id="firstName" value="#{user.firstName}" required="true" requiredMessage="Please enter your First Name"/>
+    		
+    		<br/><h:outputLabel for="lastName" value="Last Name"/>
+    		<h:inputText id="lastName" value="#{user.lastName}" required="true" requiredMessage="Please enter your Last Name"/>
+    		
+    		<br/><h:outputLabel for="password" value="Password"/>
+    		<h:inputSecret id="password" value="#{user.password}" required="true" requiredMessage="Please enter Password">
+    			<f:validator validatorId="passwordValidator"/>
+    			<f:attribute name="confirmPassword" value="#{confirmPassword}"/>
+    		</h:inputSecret>
+    		
+    		<br/><h:outputLabel for="confirm" value="Confirm password"/>
+    		<h:inputSecret id="confirm" binding="#{confirmPassword}" required="true" requiredMessage="Please enter Password again"/>
+    		
+    		<br/><h:outputLabel for="photoUri" value="Photo URI"/>
+    		<h:inputText id="photoUri" value="#{user.photoUri}" required="true" requiredMessage="Please enter Uri">
+    			<f:validateRegex pattern="^(https?|ftp|file)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]" />
+    		</h:inputText>
+    		
+    		<br/><h:commandButton value="Save user" action="#{userController.saveUser(user)}"/>
+    	</h:form>
+    	
+    	<h:dataTable value="#{userController.users}" var="u">
+    		<h:column>
+    			<f:facet name="header">ID</f:facet>
+    			#{u.ID}
+    		</h:column>
+    		<h:column>
+    			<f:facet name="header">Name</f:facet>
+    			#{u.lastName} #{u.firstName}
+    		</h:column>
+    		<h:column>
+    			<f:facet name="header">Photo</f:facet>
+    			#{u.photoUri}
+    		</h:column>
+    		<h:column>
+    			<f:facet name="header">Actions</f:facet>
+				<h:link value="Edit" outcome="user">
+					<f:param name="id" value="#{u.ID}"/>
+				</h:link>
+    		</h:column>
+    	</h:dataTable>
+    </h:body>
+</html>
