@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui" >
+      
+<f:view>
+  <h:head>
+    <title>Add a new user</title>
+  </h:head>       
+    
+  <body>
+    <h:form>
+      <p:panel header="Add a new user: ">
+      <p:messages id="messages" showDetail="true" autoUpdate="true" /> 
+      
+      <h:panelGrid columns="2" id="matchGrid" cellpadding="5"> 
+        <h:outputLabel for="nameId" value="Name: *"/>
+        <p:inputText id="nameId" title="User Name" value="#{userBean.name}" label="Name" required="true"/>
+
+        <h:outputLabel for="secondNameId" value="Second Name: *"/>
+        <p:inputText id="secondNameId" title="User Second Name" value="#{userBean.secondName}" label="Second Name" required="true"/>
+
+        <h:outputLabel for="photoId" value="Photo link: "/>
+        <p:inputText id="photoId" title="User Photo" value="#{userBean.photoLink}" />
+          
+        <h:outputLabel for="pwd1" value="Password 1: *" />
+        <p:password id="pwd1" value="#{userBean.password}" match="pwd2" label="Password 1" required="true" />
+ 
+        <h:outputLabel for="pwd2" value="Password 2: *" />
+        <p:password id="pwd2" value="#{userBean.password}" label="Password 2" required="true" />
+      </h:panelGrid>
+
+      <h:commandButton update="matchGrid" value="Submit" action="AllUsers" actionListener="#{usersCollection.AddUser}" />
+    </p:panel>  
+  </h:form>  
+</body>
+</f:view>
+</html>
