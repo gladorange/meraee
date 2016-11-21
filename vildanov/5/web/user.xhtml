@@ -11,7 +11,7 @@
     <h:outputLabel value="Person information:"/>
     <h:outputLabel value="#{userController.currentUser.name}"/>
     <h:outputLabel value="#{userController.currentUser.surname}"/>
-    <h:graphicImage url="#{userController.currentUser.url}"/>
+    <h:graphicImage url="#{userController.currentUser.url}" width="100px"/>
 </f:view>
 
 <h:dataTable value="#{userController.currentUser}" var="o">
@@ -27,7 +27,7 @@
 
     <h:column>
         <f:facet name="header">Image</f:facet>
-        <h:graphicImage url="#{o.url}"/>
+         <h:graphicImage url="#{o.url}" width="100px"/>
     </h:column>
 </h:dataTable>
 
