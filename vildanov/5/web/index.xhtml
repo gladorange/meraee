@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<h:body>
+    <h:form id="reg_form">
+        <h:panelGrid columns="2" id="RegisterGroupPanel">
+            <h:outputLabel value="Enter id: "/><h:inputText value="#{userManagementController.currentUser.id}"/>
+            <h:outputLabel value="Enter your name: "/><h:inputText
+                value="#{userManagementController.currentUser.name}"/>
+            <h:outputLabel value="Enter your surname: "/><h:inputText
+                value="#{userManagementController.currentUser.surname}"/>
+
+            <h:outputLabel value="Enter your password: "/>
+            <h:inputSecret id="password" value="#{userManagementController.currentUser.password}"/>
+            <h:message for="password" style="color: red;"/>
+            <br/>
+            <h:outputLabel value="Duplicate password: "/>
+            <h:inputSecret id="repassword"
+                           value="#{userManagementController.currentUser.password}">
+                <f:validator validatorId="passwordValidator"/>
+            </h:inputSecret>
+            <br/>
+            <h:message for="repassword" style="color: red;"/>
+            <h:outputLabel value="Enter your URL: "/><h:inputText value="#{userManagementController.currentUser.url}"/>
+        </h:panelGrid>
+        <h:commandButton value="Submit" action="#{userManagementController.saveUser}">
+        </h:commandButton>
+    </h:form>
+    <ul>
+        <ui:repeat value="#{userManagementController.usersList}" var="person">
+            <li>
+                <h:link value="#{person.name}" outcome="user" target="_blank">
+                    <f:param name="id" value="#{person.id}"/>
+                </h:link>
+            </li>
+        </ui:repeat>
+    </ul>
+</h:body>
+
+</html>
