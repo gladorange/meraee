@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+  <h:head><title>All Users</title></h:head> 
+  <h:body> 
+    <h:form>
+      <p:dataTable value="#{usersCollection.getUser()}" var="entry"
+                   resizableColumns="true">
+        <f:facet name="header">
+            User details
+        </f:facet>
+        <p:column headerText="Id" width="5%">
+	      <h:outputText value="#{entry.id}" />
+        </p:column>
+        <p:column headerText="Name">
+          <h:outputText value="#{entry.name}" />
+        </p:column>
+        <p:column headerText="Surname">
+          <h:outputText value="#{entry.secondName}" />
+        </p:column>
+        <p:column headerText="Photo" width="10%">
+          <p:button target="_blank" href="#{entry.photoLink}" icon="ui-icon-search" value="View"/>
+        </p:column>                
+      </p:dataTable>   
+      <br/>
+
+      <p:commandButton value="Add one more user" action="#{userBean.clearValues()}"/><tr/>
+      <p:commandButton value="See all users" action="AllUsers"/>
+    </h:form> 
+  </h:body>
+</f:view>
+</html>
