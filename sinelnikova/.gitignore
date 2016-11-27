@@ -1,0 +1,16 @@
+*.iml
+*.ipr
+*.iws
+*.project
+*.settings
+*.classpath
+**/target
+**/out
+.idea
+
+gwt-unitCache/
+war/WEB-INF/classes/
+war/WEB-INF/deploy/
+war/WEB-INF/lib/
+war/timetable/
+
