@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:metadata>
+    <f:viewParam name="id" value="#{usersHandler.userId}"/>
+</f:metadata>
+<head><title>User's info</title></head>
+<body>
+<h2>Information for User with id <h:outputLabel value="#{usersHandler.userId}"/> </h2>
+<h3>First name: <h:outputLabel value="#{usersHandler.user.firstName}"/></h3>
+<h3>Second name: <h:outputLabel value="#{usersHandler.user.secondName}"/></h3>
+<h3>Picture: <br/> <h:graphicImage url="#{usersHandler.user.fotoLink}"/></h3>
+</body>
+
+</html>
