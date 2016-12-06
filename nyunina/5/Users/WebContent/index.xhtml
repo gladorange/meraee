@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+<h:messages errorStyle="color: red" infoStyle="color:green"/>
+
+<h:form id="userForm">
+    ID <h:inputText value="#{userManagementController.currentUser.id}"/> <br/>
+    Имя <h:inputText value="#{userManagementController.currentUser.firstName}"/> <br/>
+    Фамилия <h:inputText value="#{userManagementController.currentUser.lastName}"/> <br/>
+    Адрес картинки <h:inputText value="#{userManagementController.currentUser.photoUrl}"/> <br/>
+    Пароль
+    <h:inputSecret id="passwordField" value="#{userManagementController.currentUser.password}"/>
+    <br/>
+    Подтверждение пароля
+    <h:inputSecret id="confirmPasswordField"
+                   value="#{userManagementController.currentUser.password}">
+        <f:validator validatorId="userPasswordValidator"/>
+    </h:inputSecret> <br/>
+    <h:commandButton value="Добавить" action="#{userManagementController.addUser}"/> <br/>
+</h:form>
+
+<h:dataTable value="#{userManagementController.allUsers}" var="user">
+    <f:facet name="header">
+        Лист пользователей
+    </f:facet>
+    <h:column>
+        <f:facet name="Имя">Имя</f:facet> 
+        <h:outputLabel value="#{user.firstName}"/>
+    </h:column>
+    <h:column>
+        <f:facet name="Фамилия">Фамилия</f:facet>
+        <h:outputLabel value="#{user.lastName}"/>
+    </h:column>
+    <h:column>
+        <f:facet name="Адрес картинки">Адрес картинки</f:facet>
+        <h:outputLabel value="#{user.photoUrl}"/>
+    </h:column>
+    <h:column>
+        <f:facet name="Пароль">Пароль</f:facet>
+        <h:outputLabel value="#{user.password}"/>
+    </h:column>
+    <h:column>
+        <f:facet name="Ссылка">Ссылка</f:facet>
+    	<h:link value="#{user.firstName}" outcome="user" target="_blank">
+                    <f:param name="id" value="#{user.id}"/>
+        </h:link>
+    </h:column>
+</h:dataTable>
+</h:body>
+</html>

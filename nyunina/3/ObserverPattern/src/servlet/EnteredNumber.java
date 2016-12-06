@@ -21,7 +21,7 @@ public class EnteredNumber implements Observable{
 		observers.remove(o);
 	}
 
-	public void notifyObservers() {
+	private void notifyObservers() {
 
 		for (Observer o : observers) {
             

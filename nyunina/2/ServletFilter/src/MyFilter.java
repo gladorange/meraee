@@ -14,7 +14,7 @@ import javax.servlet.annotation.WebFilter;
 @WebFilter("/*")
 public class MyFilter implements Filter {
 
-	FilterConfig filterConfig = null;
+	private String[] array;
 	/**
      * Default constructor. 
      */
@@ -37,19 +37,17 @@ public class MyFilter implements Filter {
 		// place your code here
 		response.setContentType("text/html");
 		String incomingString="";
-		  String stopString = filterConfig.getInitParameter("text-to-filter");
-	      
-	      String[] array = stopString.split(",");
 	      incomingString = request.getParameter("text");
 	      
 	      if(incomingString!=null)
 	      {
 	    	  for (String filter : array)
 		      {
-		    	  incomingString = incomingString.replace(" " +filter," ");
+		    	  incomingString = incomingString.replace(filter," ");
 		      }
 	      }
 	     request.setAttribute("paramFromFilter", incomingString); 
+	      
 	      // pass the request along the filter chain
 	      
 		chain.doFilter(request, response);
@@ -58,8 +56,11 @@ public class MyFilter implements Filter {
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		this.filterConfig = fConfig;
+	public void init(FilterConfig filterConfig) throws ServletException {
+	
+		 String stopString = filterConfig.getInitParameter("text-to-filter");
+		 array = stopString.split(",");
+
 	}
 
 }
